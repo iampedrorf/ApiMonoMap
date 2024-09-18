@@ -11,10 +11,10 @@ export class MongoDatabase{
             await mongoose.connect(options.mongoUrl,{
                 dbName:options.dbName
             });
-            console.log("Connected to the database");
+            console.log("Coneccion a la base de datos exitosa");
         }
         catch(error){
-            console.error("Error connecting to the database");
+            console.error("Ocurrio un error al conectarse a la base de datos");
         }
     }
 }

@@ -10,11 +10,13 @@ const app = express();
 app.use(express.json());
 app.use(AppRoutes.routes);
 
-(async () => {
-  await MongoDatabase.connect({ 
-    mongoUrl: envs.MONGO_URL ?? "", 
-    dbName: "CasesViruelaMono" });
-})();
+(async () =>
+  await MongoDatabase.connect({
+    dbName: "CasosViruelaMono",
+    mongoUrl: envs.MONGO_URL ?? "",
+  }))();
+
+
 
 app.listen(envs.PORT,()=>{
   console.log("Servidor esta corriendo")
