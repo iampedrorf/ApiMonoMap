@@ -117,8 +117,6 @@ export function generateCaseEmailTemplate(
         <div class="header">
             <img src="https://cdn-icons-png.flaticon.com/512/3022/3022151.png" alt="">
             <h1>¡${title}!</h1>
-        </div>
-        <div class="content">
             <p>${description}</p>
         </div>
         <div class="details">
