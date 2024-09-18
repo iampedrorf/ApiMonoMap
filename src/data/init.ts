@@ -14,6 +14,7 @@ export class MongoDatabase{
             console.log("Coneccion a la base de datos exitosa");
         }
         catch(error){
+            console.error(error);
             console.error("Ocurrio un error al conectarse a la base de datos");
         }
     }

@@ -69,9 +69,10 @@ export class CaseController {
     public deteleCase = async (req: Request, res: Response) => {
         try {
             const { id } = req.params;
-            const deleteCase = CaseModel.findByIdAndDelete(id);
-            return res.json(deleteCase)
+            await CaseModel.findByIdAndDelete(id);
+            return res.json({ message: "Registro eliminado" })
         } catch (error) {
+            console.error(error);
             return res.json({ message: "AOcurrio un error al eliminar el caso" })
         }
     }
@@ -79,12 +80,12 @@ export class CaseController {
     public getCasesFromLastWeek = async (req: Request, res: Response) => {
         try {
             const today = new Date();
-            
+
             const lastWeekStart = new Date();
             lastWeekStart.setDate(today.getDate() - 7);
-            
-            const startOfLastWeek = new Date(lastWeekStart.setHours(0, 0, 0, 0)); 
-            const endOfLastWeek = new Date(today.setHours(23, 59, 59, 999)); 
+
+            const startOfLastWeek = new Date(lastWeekStart.setHours(0, 0, 0, 0));
+            const endOfLastWeek = new Date(today.setHours(23, 59, 59, 999));
 
             const cases = await CaseModel.find({
                 creationDate: {
@@ -99,6 +100,6 @@ export class CaseController {
         }
     }
 
-   
+
 }
 

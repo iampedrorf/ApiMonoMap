@@ -54,6 +54,7 @@ export const emailJob = ()=>{
                 })
             )
         } catch (error) {
+            console.error(error);
             console.error("Ocurrio un error durante el proceso :((");
         }
     })
