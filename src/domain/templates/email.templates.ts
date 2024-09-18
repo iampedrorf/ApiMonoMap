@@ -1,58 +1,91 @@
 import { envs } from "../../config/envs.plugin";
 
-export function generateCaseEmailTemplate(title: string, description: string, name: string, lastname: string, genre: string, age: number, lat: number, lng: number): string {
-    const mapboxUrl = generateMapboxStaticImageURL(lat, lng);
-    return `
-    <!DOCTYPE html>
-<html lang="en">
+export function generateCaseEmailTemplate(
+  title: string,
+  description: string,
+  name: string,
+  lastname: string,
+  genre: string,
+  age: number,
+  lat: number,
+  lng: number
+): string {
+  const mapboxUrl = generateMapboxStaticImageURL(lat, lng);
+  return `
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Information</title>
+    <title>Información del Caso</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            color: #333;
         }
         .container {
             max-width: 600px;
-            margin: 50px auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            border-top: 6px solid #004080;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 50px;
         }
         .header {
-            background-color: #004080;
-            color: #ffffff;
-            padding: 30px;
+            background-color: #ffcccc;
+            padding: 40px 20px;
             text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .header img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #d9534f;
             font-size: 24px;
-            font-weight: bold;
+            margin: 0;
         }
         .content {
-            padding: 25px;
-            font-size: 16px;
-            line-height: 1.6;
-            color: #4a4a4a;
-        }
-        .content h2 {
-            font-size: 20px;
-            color: #004080;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 5px;
+            padding: 20px;
+            text-align: center;
         }
         .content p {
-            margin: 8px 0;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 20px 0;
         }
-        .content .label {
-            font-weight: bold;
-            color: #333;
+        .cta-button {
+            background-color: #d9534f;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 20px 0;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            background-color: #c9302c;
+        }
+        .details {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .details h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .details p {
+            margin: 5px 0;
+            font-size: 14px;
         }
         .map-container {
             margin-top: 20px;
@@ -65,52 +98,56 @@ export function generateCaseEmailTemplate(title: string, description: string, na
             border: 1px solid #ddd;
         }
         .footer {
-            background-color: #f0f0f0;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             font-size: 12px;
-            color: #888;
+            color: #777;
         }
-        .footer p {
-            margin: 0;
+        .footer a {
+            color: #d9534f;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            Case Information Report
+            <img src="https://cdn-icons-png.flaticon.com/512/3022/3022151.png" alt="">
+            <h1>¡${title}!</h1>
         </div>
         <div class="content">
-            <h2>Personal Details</h2>
-            <p><span class="label">Name:</span> ${name} ${lastname}</p>
-            <p><span class="label">Gender:</span> ${genre}</p>
-            <p><span class="label">Age:</span> ${age} years old</p>
-
-            <h2>Incident Location</h2>
-            <p><span class="label">Latitude:</span> ${lat}</p>
-            <p><span class="label">Longitude:</span> ${lng}</p>
-
+            <p>${description}</p>
+        </div>
+        <div class="details">
+            <h2>Detalles</h2>
+            <p><strong>Nombre:</strong> ${name}</p>
+            <p><strong>Apellido:</strong> ${lastname}</p>
+            <p><strong>Género:</strong> ${genre}</p>
+            <p><strong>Edad:</strong> ${age} años</p>
+            <p><strong>Latitud:</strong> ${lat}</p>
+            <p><strong>Longitud:</strong> ${lng}</p>
             <div class="map-container">
-                <img src="${mapboxUrl}" alt="Map of Incident Location">
-            </div>
+                <img src="${mapboxUrl}" alt="Mapa de la ubicación del incidente">
+             </div>
         </div>
         <div class="footer">
-            <p>This email is automatically generated. Please do not reply.</p>
-            <p>&copy; ${new Date().getFullYear()} Case Management System</p>
+            <p>¿Necesitas ayuda? <a href="HELP_URL">Contáctanos</a></p>
+            <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
         </div>
     </div>
 </body>
 </html>
-    `;
+  `;
 }
-
 
 export const generateMapboxStaticImageURL = (lat: number, lng: number) => {
-    const accessToken = envs.MAPBOX_ACCESS_TOKEN; // Reemplaza con tu token de acceso de Mapbox
-    const zoom = 15; // Nivel de zoom
-    const width = 800; // Ancho de la imagen
-    const height = 500; // Altura de la imagen
+  const accessToken = envs.MAPBOX_ACCESS_TOKEN; // Reemplaza con tu token de acceso de Mapbox
+  const zoom = 15; // Nivel de zoom
+  const width = 800; // Ancho de la imagen
+  const height = 500; // Altura de la imagen
 
-    return `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/pin-l-embassy+f74e4e(${lng},${lat})/${lng},${lat},${zoom}/${width}x${height}?access_token=${accessToken}`;
-}
+  return `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/pin-l-embassy+f74e4e(${lng},${lat})/${lng},${lat},${zoom}/${width}x${height}?access_token=${accessToken}`;
+};
